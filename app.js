@@ -1,12 +1,15 @@
+require('dotenv').config();
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongodb = require('mongodb');
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 // MongoDB connection settings
-const mongoURI = 'mongodb://localhost:27017'; // Replace with your actual MongoDB connection string
+const mongoURI = process.env.DATABASE;
+// Replace with your actual MongoDB connection string
 const dbName = 'quotes_db';
 const collectionName = 'quotes';
 
