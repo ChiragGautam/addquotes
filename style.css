@@ -1,0 +1,85 @@
+/* Your existing CSS code */
+#A {
+    background-color: rgb(2, 77, 2);
+    display: flex;
+    color: white;
+  }
+  
+  * {
+    padding: 0;
+    margin: 0;
+  }
+  
+  #Aa {
+    margin-left: 200px;
+    font-size: 30px;
+    font-weight: bold;
+    padding-bottom: 12px;
+    padding-top: 1px;
+  }
+  
+  #Ab {
+    margin-left: 550px;
+    font-size: 22px;
+    font-weight: bold;
+    padding-top: 5px;
+  }
+  
+  #Ac {
+    margin-left: 40px;
+    font-size: 22px;
+    font-weight: bold;
+    padding-top: 5px;
+  }
+  
+  #f2 {
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+    font-size: 32px;
+    margin-top: 1px;
+  }
+  
+  /* Additional styles for h1 and div with input fields and button */
+  h1 {
+    margin-top: 0px;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+  }
+  
+  div {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  input {
+    padding: 5px 10px;
+    margin-right: 5px;
+    font-size: 16px;
+  }
+  
+  button {
+    padding: 5px 15px;
+    font-size: 16px;
+    background-color: rgb(2, 77, 2);
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Additional styles for displaying quotes */
+  #quotesContainer {
+    margin-top: 20px;
+  }
+  
+  .quote-box {
+    border: 1px solid rgb(2, 77, 2);
+    padding: 10px;
+    margin-bottom: 10px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .first{
+    margin-top: 0px;
+  }

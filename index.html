@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="first">
+    <section id="A">
+      <div id="Aa">Great Quotes</div>
+      <div id="Ab">All Quotes</div>
+      <div id="Ac" onclick="showNewQuote()">New Quotes</div>
+
+    </section>
+    
+  </div>
+  
+  
+  <div class="new-quote-container" style="display: none;">
+    <input type="text" id="author" placeholder="Enter author">
+    <input type="text" id="quote" placeholder="Enter quote">
+    <button onclick="addQuote()">Add Quote</button>
+  </div>
+  
+  <div id="quotesContainer"></div>
+
+  <script> 
+  function showNewQuote() {
+    const newQuoteContainer = document.querySelector('.new-quote-container');
+    if (newQuoteContainer.style.display === 'none') {
+      newQuoteContainer.style.display = 'block';
+    } else {
+      newQuoteContainer.style.display = 'none';
+    }
+  }
+  async function addQuote() {
+    const author = document.getElementById('author').value;
+    const quote = document.getElementById('quote').value;
+
+    if (!author || !quote) {
+      alert('Please enter both the author and the quote.');
+      return;
+    }
+
+    try {
+      const response = await fetch('/addquote', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ author, quote })
+      });
+
+      if (response.ok) {
+        alert('Quote added successfully!');
+        document.getElementById('author').value = '';
+        document.getElementById('quote').value = '';
+        fetchQuotes(); // Fetch and display the updated quotes from the server
+      } else {
+        alert('Error adding quote. Please try again later.');
+      }
+    } catch (error) {
+      console.error('Error adding quote:', error);
+      alert('Error adding quote. Please try again later.');
+    }
+  }
+
+  async function fetchQuotes() {
+    try {
+      const response = await fetch('/quotes');
+      if (response.ok) {
+        const quotes = await response.json();
+        displayQuotes(quotes);
+      } else {
+        console.error('Error fetching quotes:', response.status);
+      }
+    } catch (error) {
+      console.error('Error fetching quotes:', error);
+    }
+  }
+
+  function displayQuotes(quotes) {
+    const quotesContainer = document.getElementById('quotesContainer');
+    quotesContainer.innerHTML = '';
+
+    quotes.forEach((quote) => {
+      const quoteBox = document.createElement('div');
+      quoteBox.className = 'quote-box';
+      quoteBox.innerHTML = `
+        <p>${quote.quote}</p>
+        <p>- ${quote.author}</p>
+      `;
+      quotesContainer.appendChild(quoteBox);
+    });
+  }
+
+
+    fetchQuotes();
+  </script>
+</body>
+</html>
