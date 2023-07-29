@@ -3,13 +3,12 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongodb = require('mongodb');
-
+require('./connectmongo');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // MongoDB connection settings
 const mongoURI = process.env.DATABASE;
-// Replace with your actual MongoDB connection string
 const dbName = 'quotes_db';
 const collectionName = 'quotes';
 
@@ -38,17 +37,7 @@ client.connect((err) => {
   // Endpoint to add a new quote to the database
   app.post('/addquote', (req, res) => {
     const { author, quote } = req.body;
-    // Inside the app.post('/addquote') route
-collection.insertOne({ author, quote }, (err, result) => {
-    if (err) {
-      console.error('Error inserting quote into database:', err);
-      return res.status(500).json({ message: 'Error adding quote. Please try again later.', error: err });
-    }
-  
-    console.log('Quote added successfully:', result.insertedId);
-    return res.status(200).json({ message: 'Quote added successfully!' });
-  });
-  
+    
     if (!author || !quote) {
       return res.status(400).json({ message: 'Author and quote are required fields.' });
     }
@@ -57,9 +46,10 @@ collection.insertOne({ author, quote }, (err, result) => {
     collection.insertOne({ author, quote }, (err, result) => {
       if (err) {
         console.error('Error inserting quote into database:', err);
-        return res.status(500).json({ message: 'Error adding quote. Please try again later.' });
+        return res.status(500).json({ message: 'Error adding quote. Please try again later.', error: err });
       }
 
+      console.log('Quote added successfully:', result.insertedId);
       return res.status(200).json({ message: 'Quote added successfully!' });
     });
   });
@@ -78,7 +68,7 @@ collection.insertOne({ author, quote }, (err, result) => {
   });
 
   // Start the server
-  app.listen(PORT, () => {
+  app.listen(3000, () => {
     console.log(`Server started on http://localhost:${PORT}`);
   });
 });
